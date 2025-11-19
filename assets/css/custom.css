@@ -77,45 +77,45 @@ h6 {
   cursor: pointer;
 }
 
-.hero .social-links a:hover{background-color: #bd9de0; color: rgb(85, 33, 81);}
-.hero .social-links a:active {background-color: #9de0a0; color: rgb(143, 170, 35); box-shadow: 0 8px 16px 0 rgba(255, 33, 17, 0.6); width: 50%;}
-.button3 {background-color: #681616; color: rgb(226, 133, 155); width: 100%;}
-
-.section {
-  color: var(--default-color);
-  overflow: clip;
-
-
-  background-color:#4e375f;
-  
-  padding: 100px; 
-  margin:100px;
-
-
-  box-shadow: 25px 25px rgb(55, 36, 61);
-  border-radius: 5%;
+.hero .social-links a:hover {
+  background-color: #bd9de0;
+  color: rgb(85, 33, 81);
 }
 
+.hero .social-links a:active {
+  background-color: #9de0a0;
+  color: rgb(143, 170, 35);
+  box-shadow: 0 8px 16px 0 rgba(255, 33, 17, 0.6);
+  width: 50%;
+}
 
-.hero .hero-visual .profile-container .profile-image {
-  position: relative;
+.button3 {
+  background-color: #681616;
+  color: rgb(226, 133, 155);
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 30px;
-  z-index: 2;
+}
 
+.section {
+  animation: fade 4s ease-in;
+  color: var(--default-color);
+  overflow: hidden;
+  background-color: #4e375f;
+  padding: 40px;
+  margin: 40px;
+  box-shadow: 25px 25px rgb(55, 36, 61);
+  border-radius: 5%;
 }
 
 
 .hero .hero-visual .profile-container .profile-image:hover {
   transform: scaleX(-1);
 }
+
 .hero .hero-visual .profile-container .profile-image:active {
   opacity: 0.5;
 }
 
-.scroll-top { 
+.scroll-top {
   background-color: rgb(99, 58, 130);
   border: none;
   color: rgb(210, 203, 238);
@@ -125,10 +125,7 @@ h6 {
   display: inline-block;
   font-size: 22px;
   cursor: pointer;
-  } 
-
-  
-  
+}
 
 .portfolio-filters {
   counter-reset: item;
@@ -150,7 +147,6 @@ h6 {
   font-weight: bold;
 }
 
-/* Nested list */
 .portfolio-filters ul {
   list-style: none;
   padding-left: 20px;
@@ -160,8 +156,6 @@ h6 {
   content: "• ";
   color: #ff7b00;
 }
-
-
 
 .services-table {
   width: 100%;
@@ -180,3 +174,83 @@ h6 {
 .services-table tbody tr:hover {
   background-color: #2e7ce2;
 }
+
+#preloader {
+  border: 50px solid #f3f3f3;
+  border-radius: 100%;
+  border-top: 50px solid #3498db;
+  width: 300px;
+  height: 300px;
+  animation: loaderspin 4s linear infinite;
+}
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loaderspin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-visual .profile-container .profile-image {
+    animation: fade;
+    background-color: green;
+    text-decoration: overline;
+  }
+}
+
+.hero .hero-visual .profile-container .profile-image {
+  animation: spin 5s linear;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.services {
+  background: linear-gradient(90deg, #744bae, #4b296a, #851953);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+
+  padding: 40px;
+  margin: 40px;
+  border-radius: 5%;
+  color: var(--default-color);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.about-triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #6a00ff;
+  margin: 50px 50px; 
+  transform-origin: center bottom;
+  animation: rotateScale 4s infinite ease-in-out;
+}
+
+@keyframes rotateScale {
+  0% {transform: rotate(0deg) scale(1);}
+  25% {transform: rotate(90deg) scale(1.2);}
+  50% {transform: rotate(180deg) scale(1);}
+  75% {transform: rotate(270deg) scale(0.8);}
+  100% {transform: rotate(360deg) scale(1);}
+}
+
