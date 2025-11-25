@@ -906,43 +906,43 @@
             </div>
           </div>
 
-          <div class="col-lg-7">
-            <div class="contact-form">
-              <h3>Get In Touch</h3>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.</p>
+          
 
-              <form action="forms/contact.php" method="post" class="php-email-form">
-                <div class="row gy-4">
+          <section id="contact">
+  <h2>Kontaktai</h2>
 
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                  </div>
+        <form id="contact-form">
 
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                  </div>
+          <label>Vardas</label>
+          <input type="text" id="firstName">
 
-                  <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                  </div>
+          <label>Pavardė</label>
+          <input type="text" id="lastName">
 
-                  <div class="col-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                  </div>
+          <label>El. paštas</label>
+          <input type="email" id="email">
 
-                  <div class="col-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
+          <label>Telefono numeris</label>
+          <input type="tel" id="phone">
 
-                    <button type="submit" class="btn">Send Message</button>
-                  </div>
+          <label>Adresas</label>
+          <input type="text" id="address">
 
-                </div>
-              </form>
+          <p>CV aiškumo vertinimas (1-10)</p>
+          <input type="number" id="rating1" min="1" max="10">
 
-            </div>
-          </div>
+          <p>Dizaino kokybės vertinimas (1-10)</p>
+          <input type="number" id="rating2" min="1" max="10">
+
+          <p>Informacijos naudingumo vertinimas (1-10)</p>
+          <input type="number" id="rating3" min="1" max="10">
+
+          <button type="submit">Submit</button>
+
+        </form>
+
+        </section>
+
 
         </div>
 
@@ -989,6 +989,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/custom.js"></script>
 
 </body>
 
