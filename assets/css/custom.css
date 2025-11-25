@@ -254,3 +254,60 @@ h6 {
   100% {transform: rotate(360deg) scale(1);}
 }
 
+
+
+
+
+
+
+#contact-form {
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 22px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+#contact-form label {
+    display: inline-block;
+    width: 140px;
+    margin-top: 12px;
+}
+
+#contact-form input {
+    display: inline-block;
+    width: 250px;
+    padding: 6px;
+    font-size: 22px;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+#contact-form p {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#contact-form button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+#contact-form input.error {
+    border: 1px solid red;
+}
+
+.error-message {
+    display: block;
+    color: red;
+    font-size: 22px;
+    margin-top: 3px;
+    margin-left: 140px;
+}
+
+#contact-form button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
