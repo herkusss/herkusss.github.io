@@ -205,3 +205,240 @@ document.addEventListener("DOMContentLoaded", function () {
         successMessage.style.display = "block";
     });
 });
+
+
+
+
+
+
+// Korteles
+
+document.addEventListener("DOMContentLoaded", function () {
+    const board = document.getElementById("game-board");
+    const difficultySelect = document.getElementById("difficulty");
+    const startBtn = document.getElementById("startGame");
+    const resetBtn = document.getElementById("resetGame");
+    const movesSpan = document.getElementById("moves");
+    const matchesSpan = document.getElementById("matches");
+    const timeSpan = document.getElementById("time");
+    const winMessage = document.getElementById("win-message");
+    const bestEasySpan = document.getElementById("best-easy");
+    const bestHardSpan = document.getElementById("best-hard");
+
+    if (!board) {
+        return;
+    }
+
+    const baseIcons = [
+        "assets/img/korteles/A.png",
+        "assets/img/korteles/B.png",
+        "assets/img/korteles/C.png",
+        "assets/img/korteles/D.png",
+        "assets/img/korteles/E.png",
+        "assets/img/korteles/F.png"];
+
+
+    let deck = [];
+    let flippedCards = [];
+    let isBusy = false;
+    let moves = 0;
+    let matches = 0;
+    let totalPairs = 0;
+
+    let timerId = null;
+    let currentTime = 0;
+    let gameStarted = false;
+
+    const LS_KEY_EASY = "memory-best-easy";
+    const LS_KEY_HARD = "memory-best-hard";
+
+    function loadBestScores() {
+        const bestEasy = localStorage.getItem(LS_KEY_EASY);
+        const bestHard = localStorage.getItem(LS_KEY_HARD);
+        bestEasySpan.textContent = bestEasy ? bestEasy : "-";
+        bestHardSpan.textContent = bestHard ? bestHard : "-";
+    }
+
+    loadBestScores();
+
+    function startTimer() {
+        if (timerId) return;
+        timerId = setInterval(() => {
+            currentTime++;
+            timeSpan.textContent = currentTime;
+        }, 1000);
+    }
+
+    function stopTimer() {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+    }
+
+    function resetStats() {
+        moves = 0;
+        matches = 0;
+        currentTime = 0;
+        gameStarted = false;
+        movesSpan.textContent = "0";
+        matchesSpan.textContent = "0";
+        timeSpan.textContent = "0";
+        winMessage.textContent = "";
+        stopTimer();
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function buildDeck() {
+        const difficulty = difficultySelect.value; 
+        let neededPairs = 0;
+
+        if (difficulty === "easy") {
+            // 4 x 3 = 12 kortelių 6 poros
+            neededPairs = 6;
+            board.classList.remove("hard");
+            board.classList.add("easy");
+        } else {
+            // 6 x 4 = 24 kortelės 12 porų
+            neededPairs = 12;
+            board.classList.remove("easy");
+            board.classList.add("hard");
+        }
+        const icons = [];
+        while (icons.length < neededPairs) {
+            for (const icon of baseIcons) {
+                if (icons.length < neededPairs) {
+                    icons.push(icon);
+                }
+            }
+        }
+
+        const tempDeck = [];
+        icons.forEach(icon => {
+            tempDeck.push({ icon, id: Math.random() });
+            tempDeck.push({ icon, id: Math.random() });
+        });
+
+        totalPairs = neededPairs;
+        return shuffle(tempDeck);
+    }
+
+    function renderBoard() {
+        board.innerHTML = "";
+        deck.forEach(cardData => {
+            const card = document.createElement("div");
+            card.className = "game-card";
+            card.dataset.icon = cardData.icon;
+            card.dataset.id = cardData.id;
+
+            const img = document.createElement("img");
+            img.src = cardData.icon;
+            img.className = "card-image";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.visibility = "hidden";
+
+            card.appendChild(img);
+
+            card.addEventListener("click", function () {
+                handleCardClick(card);
+            });
+
+            board.appendChild(card);
+        });
+    }
+
+
+    function handleCardClick(card) {
+        if (isBusy) return;
+        if (card.classList.contains("flipped") || card.classList.contains("matched")) return;
+        if (!gameStarted) {
+            gameStarted = true;
+            startTimer();
+        }
+
+        card.classList.add("flipped");
+        card.querySelector("img").style.visibility = "visible";
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+            checkMatch();
+        }
+    }
+
+    function checkMatch() {
+        if (flippedCards.length !== 2) return;
+
+        isBusy = true;
+        moves++;
+        movesSpan.textContent = moves.toString();
+
+        const [card1, card2] = flippedCards;
+        const sameIcon = card1.dataset.icon === card2.dataset.icon;
+
+        if (sameIcon) {
+            card1.querySelector("img").style.visibility = "visible";
+            card2.querySelector("img").style.visibility = "visible";
+            matches++;
+            matchesSpan.textContent = matches.toString();
+            flippedCards = [];
+            isBusy = false;
+            checkWin();
+        } else {
+            setTimeout(() => {
+                card1.classList.remove("flipped");
+                card2.classList.remove("flipped");
+                card1.querySelector("img").style.visibility = "hidden";
+                card2.querySelector("img").style.visibility = "hidden";
+                flippedCards = [];
+                isBusy = false;
+            }, 1000);
+        }
+    }
+
+    function checkWin() {
+        if (matches === totalPairs) {
+            stopTimer();
+            winMessage.textContent = "Laimeta. Visos poros surastos.";
+            saveBestScore();
+        }
+    }
+
+    function saveBestScore() {
+        const difficulty = difficultySelect.value;
+        if (difficulty === "easy") {
+            const currentBest = localStorage.getItem(LS_KEY_EASY);
+            if (!currentBest || moves < Number(currentBest)) {
+                localStorage.setItem(LS_KEY_EASY, moves.toString());
+            }
+        } else {
+            const currentBest = localStorage.getItem(LS_KEY_HARD);
+            if (!currentBest || moves < Number(currentBest)) {
+                localStorage.setItem(LS_KEY_HARD, moves.toString());
+            }
+        }
+        loadBestScores();
+    }
+
+    function startGame() {
+        resetStats();
+        deck = buildDeck();
+        renderBoard();
+    }
+
+    function resetGame() {
+        startGame();
+    }
+
+    startBtn.addEventListener("click", startGame);
+    resetBtn.addEventListener("click", resetGame);
+    difficultySelect.addEventListener("change", startGame);
+});
