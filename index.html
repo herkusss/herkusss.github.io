@@ -854,8 +854,59 @@
 
     </section><!-- /Testimonials Section -->
 
+
+
     <!-- Contact Section -->
     <section id="contact" class="contact section">
+
+
+          <!-- Korteles -->
+    <section id="game" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Mano Žaidimas</h2>
+          <p>Pamėginkite surasti visas kortelių poras.</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="difficulty" class="form-label">Sudėtingumo lygis:</label>
+          <select id="difficulty" class="form-select" style="max-width: 250px;">
+            <option value="easy">Lengvas (4×3)</option>
+            <option value="hard">Sunkus (6×4)</option>
+          </select>
+        </div>
+
+        <div class="mb-3 d-flex gap-2 flex-wrap">
+          <button id="startGame" class="btn btn-primary">Start</button>
+          <button id="resetGame" class="btn btn-outline-secondary">Atnaujinti</button>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 mb-3">
+            <div id="game-board" class="game-board">
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-3">
+            <div class="game-stats">
+              <h3>Statistika</h3>
+              <p>Ėjimai: <span id="moves">0</span></p>
+              <p>Sutapusios poros: <span id="matches">0</span></p>
+              <p>Laikas: <span id="time">0</span> s</p>
+              <hr>
+              <h4>Geriausi rezultatai</h4>
+              <p>Lengvas (mažiausiai ėjimų): <span id="best-easy">-</span></p>
+              <p>Sunkus (mažiausiai ėjimų): <span id="best-hard">-</span></p>
+            </div>
+
+            <div id="win-message" class="win-message"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
