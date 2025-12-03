@@ -259,7 +259,7 @@ h6 {
 
 
 
-
+/* Kontaktu forma */
 #contact-form {
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
     font-size: 22px;
@@ -310,4 +310,77 @@ h6 {
 #contact-form button[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+
+
+
+
+/* Korteles */
+#game {
+  margin-top: 40px;
+}
+
+.game-board {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+}
+
+.game-card {
+  width: 80px;
+  height: 100px;
+  background: #3b2450;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
+  color: transparent; 
+  border: 2px solid #bd9de0;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.game-card img {
+  width: 70%;           
+  height: 70%;
+  object-fit: contain;     
+  display: block;
+  margin: auto;            
+  visibility: hidden;   
+}
+
+.game-card.flipped,
+.game-card.matched {
+  background: #bd9de0;
+  color: #2b1438;
+  transform: scale(1.03);
+}
+
+.game-card.matched {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.game-stats {
+  background: rgba(0,0,0,0.15);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.win-message {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ff9d;
+}
+
+.game-board.easy {
+  grid-template-columns: repeat(4, 1fr); /* 4x3 */
+}
+
+.game-board.hard {
+  grid-template-columns: repeat(6, 1fr); /* 6x4 */
 }
